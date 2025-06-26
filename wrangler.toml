@@ -9,3 +9,7 @@ crons = []
 
 [observability.logs]
 enabled = true
+
+[[kv_namespaces]]
+binding = "KV_API_KEYS"
+id = "61039c5a8d514a25b5df8a3da3845285"
