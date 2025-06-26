@@ -1,6 +1,6 @@
 name = "nwita-ai-linkedin-company-info"
 compatibility_date = "2025-03-28"
-main = "linkedin_company.js"
+main = "src/index.js"
 account_id = "46827c91abf2fd46f0c180ba88207593"
 workers_dev = true
 

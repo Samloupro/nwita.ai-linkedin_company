@@ -1,5 +1,5 @@
-import { validateApiKey } from './apiKeyValidation.js';
-import retryFetch from './retryFetch.js';
+import { validateApiKey } from '../utils/apiKeyValidation.js';
+import retryFetch from '../utils/retryFetch.js';
 
 export default {
   async fetch(request, env, ctx) {
@@ -100,8 +100,7 @@ export default {
 
       // Extraction des publications récentes
       const publications = jsonLd['@graph']?.filter(item =>
-        item['@type'] === 'DiscussionForumPosting'
-      )?.map(post => ({
+        item['@type'] === 'DiscussionForumPosting')?.map(post => ({
         date: new Date(post.datePublished).toISOString().split('T')[0],
         text: post.text?.trim() || 'No text',
         url: post.mainEntityOfPage || 'No URL'
