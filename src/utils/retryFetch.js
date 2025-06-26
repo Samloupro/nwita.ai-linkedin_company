@@ -10,7 +10,7 @@ import detectErrorType from './errorDetector.js';
  * @param {number} [delay=500] - Délai initial en millisecondes.
  * @returns {Promise<Response>} - Promesse qui résout avec la réponse ou rejette avec un objet d'erreur contenant un type.
  */
-function retryFetch(url, options = {}, maxRetries = 5, delay = 500) {
+function retryFetch(url, options = {}, maxRetries = 10, delay = 1000) {
   return new Promise((resolve, reject) => {
     const attemptFetch = (attempt) => {
       fetch(url, options)
