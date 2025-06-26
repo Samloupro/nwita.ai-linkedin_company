@@ -54,7 +54,7 @@ export default {
 
       // Store response in cache, only if useCache is true
       if (useCache) {
-        await storeCache(cacheKey, finalResponse.clone());
+        storeCache(cacheKey, finalResponse.clone(), ctx); // Pass ctx here
       }
 
       return finalResponse;
