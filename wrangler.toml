@@ -1,4 +1,4 @@
-name = "nwita.ai-linkedin_company"
+name = "nwita-ai-linkedin-company"
 compatibility_date = "2025-03-28"
 main = "linkedin_company.js"
 account_id = "46827c91abf2fd46f0c180ba88207593"
