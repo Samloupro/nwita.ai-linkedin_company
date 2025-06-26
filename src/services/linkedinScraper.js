@@ -37,8 +37,8 @@ export async function scrapeCompanyData(url, requestHeaders, env) {
   const similarPages = extractSimilarCompanies(html);
 
   return {
-    organization: companyDetails.organization, // Pass organization for consistency
-    finalUrl: companyDetails.company_linkedin_url, // Pass finalUrl for consistency
+    organization, // Pass the organization object directly
+    finalUrl, // Pass finalUrl directly
     foundedYear: companyDetails.founded_year,
     specialties: companyDetails.specialties,
     industry: companyDetails.industry,
