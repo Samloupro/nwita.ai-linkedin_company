@@ -3,7 +3,7 @@ export async function validateApiKey(request, env) {
   if (!rawApiKey) {
     return {
       error: new Response(
-        JSON.stringify([{ erreur: 'Entête Authorization manquant' }]),
+        JSON.stringify([{ error: 'Missing Authorization header' }]),
         { status: 401, headers: { 'Content-Type': 'application/json' } }
       )
     };
@@ -12,7 +12,7 @@ export async function validateApiKey(request, env) {
     if (!env.KV_API_KEYS) {
       return {
         error: new Response(
-          JSON.stringify([{ erreur: 'KV non configuré' }]),
+          JSON.stringify([{ error: 'KV not configured' }]),
           { status: 500, headers: { 'Content-Type': 'application/json' } }
         )
       };
@@ -21,7 +21,7 @@ export async function validateApiKey(request, env) {
     if (!apiKeyExists) {
       return {
         error: new Response(
-          JSON.stringify([{ erreur: 'Clé API invalide' }]),
+          JSON.stringify([{ error: 'Invalid API key' }]),
           { status: 403, headers: { 'Content-Type': 'application/json' } }
         )
       };
@@ -30,7 +30,7 @@ export async function validateApiKey(request, env) {
     console.error('KV store error:', e);
     return {
       error: new Response(
-        JSON.stringify([{ erreur: 'Erreur interne du serveur' }]),
+        JSON.stringify([{ error: 'Internal server error' }]),
         { status: 500, headers: { 'Content-Type': 'application/json' } }
       )
     };
