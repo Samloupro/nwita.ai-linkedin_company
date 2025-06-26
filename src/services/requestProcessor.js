@@ -1,8 +1,14 @@
 export async function processRequest(request) {
   let url;
+  let useCache = true; // Default to true: use cache
+
   if (request.method === "POST") {
-    const { url: bodyUrl } = await request.json();
-    url = bodyUrl;
+    const body = await request.json();
+    url = body.url;
+    // If 'cache' is explicitly false in the body, then disable cache
+    if (body.cache === false) {
+      useCache = false;
+    }
   } else {
     return {
       error: new Response(JSON.stringify({ error: "Only POST requests are allowed" }), {
@@ -22,5 +28,5 @@ export async function processRequest(request) {
   }
 
   url = encodeURI(url);
-  return { url };
+  return { url, useCache }; // Return URL and useCache flag
 }

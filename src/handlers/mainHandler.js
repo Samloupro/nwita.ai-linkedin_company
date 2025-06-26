@@ -12,21 +12,28 @@ export default {
       return apiKeyError;
     }
 
-    // Process request and extract URL
-    const { url, error: requestError } = await processRequest(request);
+    // Process request and extract URL and cache flag
+    const { url, useCache, error: requestError } = await processRequest(request);
     if (requestError) {
       return requestError;
     }
 
-    // Check cache for existing response
-    const { cachedResponse, cacheKey } = await checkCache(url, request.headers);
-    if (cachedResponse) {
-        return cachedResponse;
+    let cachedResponse = null;
+    let cacheKey = null;
+
+    if (useCache) { // If useCache is true, we check the cache
+        const cacheResult = await checkCache(url, request.headers);
+        cachedResponse = cacheResult.cachedResponse;
+        cacheKey = cacheResult.cacheKey;
+
+        if (cachedResponse) {
+            return cachedResponse; // Return cached response if it exists
+        }
     }
 
     try {
       // Scrape company data
-      const { result: scrapedData, error: scrapeError } = await scrapeCompanyData(url, request.headers, env);
+      const { error: scrapeError, ...scrapedData } = await scrapeCompanyData(url, request.headers, env);
       if (scrapeError) {
         return scrapeError;
       }
@@ -39,8 +46,10 @@ export default {
         headers: { "Content-Type": "application/json" }
       });
 
-      // Store response in cache
-      await storeCache(cacheKey, finalResponse.clone());
+      // Store response in cache, only if useCache is true
+      if (useCache) {
+        await storeCache(cacheKey, finalResponse.clone());
+      }
 
       return finalResponse;
     } catch (error) {
