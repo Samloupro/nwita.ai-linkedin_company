@@ -1,4 +1,4 @@
-import retryFetch from '../../utils/retryFetch.js';
+import retryFetch from '../utils/retryFetch.js';
 import { extractJsonLd, getOrganizationData } from './linkedin/jsonLdProcessor.js';
 import { extractCompanyDetails, extractPublications, extractSimilarCompanies } from './linkedin/dataExtractors.js';
 
