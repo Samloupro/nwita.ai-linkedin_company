@@ -28,5 +28,6 @@ export async function processRequest(request) {
   }
 
   url = encodeURI(url);
+  console.log(`Processing request for URL: ${url}, Cache enabled: ${useCache}`);
   return { url, useCache }; // Return URL and useCache flag
 }

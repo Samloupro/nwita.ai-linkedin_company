@@ -27,11 +27,17 @@ export default {
         cacheKey = cacheResult.cacheKey;
 
         if (cachedResponse) {
+            console.log(`Cache HIT for URL: ${url}`);
             return cachedResponse; // Return cached response if it exists
+        } else {
+            console.log(`Cache MISS for URL: ${url}`);
         }
+    } else {
+        console.log(`Cache BYPASSED for URL: ${url}`);
     }
 
     try {
+      console.log(`Initiating data scraping for URL: ${url}`);
       // Scrape company data
       const { error: scrapeError, ...scrapedData } = await scrapeCompanyData(url, request.headers, env);
       if (scrapeError) {
